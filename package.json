@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:lambda": "netlify-lambda serve functions",
-    "build:lambda": "netlify-lambda build functions"
+    "build:lambda": "netlify-lambda build functions",
+    "prod": "yarn build:lambda"
   },
   "keywords": [],
   "author": "",
