@@ -8,7 +8,7 @@ const config = {
 };
 exports.handler = async function (event, context) {
   try {
-    const { data } = await api.put(
+    const { data } = await api.post(
       "https://api.xero.com/api.xro/2.0/Invoices",
       {
         Type: "ACCREC",
