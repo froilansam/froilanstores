@@ -1,5 +1,14 @@
 const axios = require("axios");
 const qs = require("qs");
+const { attachToken } = require("../utils/api");
+
+const config = {
+  headers: {
+    Authorization:
+      "Basic MjNFQzZFMDJDMzgwNDUyNzkxNUQwRjc1NzZCNDEyM0M6VFNLcTY1QWFyUkNINTlzazdLVl9GeGJFY2IxYjNMeTZfankyQkp4dFVEMGZDWXlM",
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+};
 
 exports.handler = async function (event, context, callback) {
   console.log("Event: ", typeof event?.queryStringParameters?.code);
@@ -12,16 +21,6 @@ exports.handler = async function (event, context, callback) {
     "https://froilanstores.netlify.app/.netlify/functions/auth"
   );
 
-  const config = {
-    headers: {
-      Authorization:
-        "Basic MjNFQzZFMDJDMzgwNDUyNzkxNUQwRjc1NzZCNDEyM0M6VFNLcTY1QWFyUkNINTlzazdLVl9GeGJFY2IxYjNMeTZfankyQkp4dFVEMGZDWXlM",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  };
-
-  console.log("Params: ", params);
-
   try {
     const { data } = await axios.post(
       "https://identity.xero.com/connect/token",
@@ -29,7 +28,7 @@ exports.handler = async function (event, context, callback) {
       config
     );
 
-    console.log("Data:", data);
+    attachToken(data.access_token);
   } catch (e) {
     console.log(e);
   }
