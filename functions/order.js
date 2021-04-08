@@ -1,11 +1,17 @@
-import api from "../utils/api";
+const axios = require("axios");
+const { getToken } = require("../utils/api");
 
 exports.handler = async function (event, context) {
   try {
-    console.log("Liuh: ", api.defaults.headers.common);
-    const { data } = await api({
+    const { data } = await axios({
       url: "https://api.xero.com/api.xro/2.0/Invoices",
       method: "PUT",
+      headers: {
+        Authorization: getToken(),
+        "Content-Type": "application/json",
+        "Xero-Tenant-Id": "b8f641c3-fc81-461c-b1ef-467ed4681ffd",
+        Accept: "application/json",
+      },
       data: {
         Type: "ACCREC",
         Contact: {
