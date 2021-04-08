@@ -2,7 +2,7 @@ import api from "../utils/api";
 
 exports.handler = async function (event, context) {
   try {
-    console.log("Liuh: ", api);
+    console.log("Liuh: ", api.defaults.headers.common);
     const { data } = await api({
       url: "https://api.xero.com/api.xro/2.0/Invoices",
       method: "PUT",
