@@ -15,10 +15,16 @@ exports.handler = async function (event, context, callback) {
     },
   };
 
-  axios
-    .post("https://identity.xero.com/connect/token", params, config)
+  axios(
+    { url: "https://identity.xero.com/connect/token", method: "post" },
+    params,
+    config
+  )
     .then((data) => {
+      callback(null);
       console.log("Data: ", data);
+      callback(null, { statusCode: 200, body: data });
     })
     .catch((err) => console.log("Error: ", err));
+  console.log("sasas");
 };
