@@ -13,11 +13,11 @@ exports.handler = async function (event, context, callback) {
   const config = {
     method: "POST",
     headers: {
-      "Content-type": "application/x-www-form-urlencoded",
+      "Content-type": "application/json",
       Authorization:
         "Basic MjNFQzZFMDJDMzgwNDUyNzkxNUQwRjc1NzZCNDEyM0M6VFNLcTY1QWFyUkNINTlzazdLVl9GeGJFY2IxYjNMeTZfankyQkp4dFVEMGZDWXlM",
     },
-    data: qs.stringify(params),
+    data: params,
     url: "https://identity.xero.com/connect/token",
   };
   try {
