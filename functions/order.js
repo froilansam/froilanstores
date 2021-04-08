@@ -1,11 +1,5 @@
-const api = require("../utils/api");
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    "Xero-Tenant-Id": "b8f641c3-fc81-461c-b1ef-467ed4681ffd",
-    Accept: "application/json",
-  },
-};
+import api from "../utils/api";
+
 exports.handler = async function (event, context) {
   try {
     const { data } = await api({
