@@ -1,19 +1,15 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="xero-client-id" content="YOUR_CLIENT_ID" />
+    <meta name="xero-scopes" content="openid,profile,email" />
+    <meta name="xero-redirect-uri" content="YOUR_CALLBACK_URL" />
+    <!-- optional -->
+    <meta name="xero-state" content="YOUR_REQUEST_STATE" />
     <title>My App</title>
   </head>
   <body>
-    <span
-      data-xero-sso
-      data-href="/sign-in/xero"
-      data-label="Sign in with Xero"
-    ></span>
-    <span
-      data-xero-sso
-      data-href="/sign-up/xero"
-      data-label="Sign up using Xero"
-    ></span>
+    <span data-xero-sso data-label="Sign in with Xero"></span>
     <script
       src="https://edge.xero.com/platform/sso/xero-sso.js"
       async
