@@ -7,7 +7,10 @@ exports.handler = async function (event, context, callback) {
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
   params.append("code", event?.queryStringParameters?.code);
-  params.append("redirect_uri", "https://facebook.com");
+  params.append(
+    "redirect_uri",
+    "https://froilanstores.netlify.app/.netlify/functions/auth"
+  );
 
   const config = {
     headers: {
