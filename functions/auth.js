@@ -21,7 +21,10 @@ exports.handler = async function (event, context, callback) {
     url: "https://identity.xero.com/connect/token",
   };
 
-  axios(config)
+  axios({
+    url: "http://dummy.restapiexample.com/api/v1/employees",
+    method: "GET",
+  })
     .then((data) => {
       console.log("Data: ", data);
     })
