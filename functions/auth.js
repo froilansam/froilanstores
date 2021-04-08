@@ -23,5 +23,7 @@ exports.handler = async function (event, context, callback) {
   try {
     const { data } = await axios(config);
     console.log("sasas", data);
-  } catch {}
+  } catch (e) {
+    console.log(e);
+  }
 };
