@@ -19,5 +19,6 @@ exports.handler = async function (event, context) {
     )
     .then((data) => {
       console.log("Data: ", data);
-    });
+    })
+    .catch((err) => console.log("Error: ", err));
 };
