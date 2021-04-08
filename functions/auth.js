@@ -11,8 +11,6 @@ const config = {
 };
 
 exports.handler = async function (event, context, callback) {
-  console.log("Event: ", typeof event?.queryStringParameters?.code);
-
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
   params.append("code", event?.queryStringParameters?.code);

@@ -1,4 +1,4 @@
-const axois = require("axios");
+const axios = require("axios");
 
 const timeout = 10000;
 
