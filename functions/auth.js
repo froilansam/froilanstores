@@ -15,6 +15,8 @@ exports.handler = async function (event, context, callback) {
     },
   };
 
+  console.log("Params: ", params);
+
   axios(
     { url: "https://identity.xero.com/connect/token", method: "post" },
     params,
@@ -23,7 +25,6 @@ exports.handler = async function (event, context, callback) {
     .then((data) => {
       callback(null);
       console.log("Data: ", data);
-      callback(null, { statusCode: 200, body: data });
     })
     .catch((err) => console.log("Error: ", err));
   console.log("sasas");
