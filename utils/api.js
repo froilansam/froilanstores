@@ -9,6 +9,7 @@ const instance = axios.create({
 export default instance;
 
 export function attachToken(token) {
+  console.log("Attach: ", token);
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   instance.defaults.headers.common["Content-Type"] = "application/json";
   instance.defaults.headers.common["Xero-Tenant-Id"] =
