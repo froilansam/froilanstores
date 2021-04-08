@@ -13,8 +13,8 @@ exports.handler = async function (event, context, callback) {
   const config = {
     method: "POST",
     headers: {
-      "content-type": "application/x-www-form-urlencoded",
-      authorization:
+      "Content-type": "application/x-www-form-urlencoded",
+      Authorization:
         "Basic MjNFQzZFMDJDMzgwNDUyNzkxNUQwRjc1NzZCNDEyM0M6VFNLcTY1QWFyUkNINTlzazdLVl9GeGJFY2IxYjNMeTZfankyQkp4dFVEMGZDWXlM",
     },
     data: qs.stringify(params),
