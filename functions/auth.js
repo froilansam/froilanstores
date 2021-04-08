@@ -2,7 +2,7 @@ const axios = require("axios");
 const qs = require("qs");
 
 exports.handler = async function (event, context, callback) {
-  console.log("Event: ", typeof event?.queryStringParameters?.code);
+  console.log("Event: ", event?.queryStringParameters?.code);
 
   const params = {
     grant_type: "authorization_code",
@@ -20,11 +20,8 @@ exports.handler = async function (event, context, callback) {
     data: qs.stringify(params),
     url: "https://identity.xero.com/connect/token",
   };
-
-  axios({
-    url: "http://dummy.restapiexample.com/api/v1/employees",
-    method: "GET",
-  })
+  console.log(axios(config));
+  axios(config)
     .then((data) => {
       console.log("Data: ", data);
     })
