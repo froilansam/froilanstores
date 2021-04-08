@@ -20,11 +20,8 @@ exports.handler = async function (event, context, callback) {
     data: qs.stringify(params),
     url: "https://identity.xero.com/connect/token",
   };
-  console.log(axios(config));
-  axios(config)
-    .then((data) => {
-      console.log("Data: ", data);
-    })
-    .catch((err) => console.log("Error: ", err));
-  console.log("sasas");
+  try {
+    const { data } = await axios(config);
+    console.log("sasas", data);
+  } catch {}
 };
