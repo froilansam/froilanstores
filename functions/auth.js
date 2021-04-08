@@ -2,27 +2,31 @@ const axios = require("axios");
 const qs = require("qs");
 
 exports.handler = async function (event, context, callback) {
-  console.log("Event: ", event?.queryStringParameters?.code);
+  console.log("Event: ", typeof event?.queryStringParameters?.code);
 
-  const params = {
-    grant_type: "authorization_code",
-    code: event?.queryStringParameters?.code,
-    redirect_uri: "https://facebook.com",
-  };
+  const params = new URLSearchParams();
+  params.append("grant_type", "authorization_code");
+  params.append("code", event?.queryStringParameters?.code);
+  params.append("redirect_uri", "https://facebook.com");
 
   const config = {
-    method: "POST",
     headers: {
-      "Content-type": "application/json",
       Authorization:
         "Basic MjNFQzZFMDJDMzgwNDUyNzkxNUQwRjc1NzZCNDEyM0M6VFNLcTY1QWFyUkNINTlzazdLVl9GeGJFY2IxYjNMeTZfankyQkp4dFVEMGZDWXlM",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    data: params,
-    url: "https://identity.xero.com/connect/token",
   };
+
+  console.log("Params: ", params);
+
   try {
-    const { data } = await axios(config);
-    console.log("sasas", data);
+    const { data } = await axios.post(
+      "https://identity.xero.com/connect/token",
+      params,
+      config
+    );
+
+    console.log("Data:", data);
   } catch (e) {
     console.log(e);
   }
