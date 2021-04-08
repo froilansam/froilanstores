@@ -1,18 +1,11 @@
-const axios = require("axios");
+const api = require("../utils/api");
 const { getToken } = require("../utils/api");
 
 exports.handler = async function (event, context) {
   try {
-    const { data } = await axios({
-      url: "https://api.xero.com/api.xro/2.0/Invoices",
-      method: "PUT",
-      headers: {
-        Authorization: getToken(),
-        "Content-Type": "application/json",
-        "Xero-Tenant-Id": "b8f641c3-fc81-461c-b1ef-467ed4681ffd",
-        Accept: "application/json",
-      },
-      data: {
+    const { data } = await api.put(
+      "https://api.xero.com/api.xro/2.0/Invoices",
+      {
         Type: "ACCREC",
         Contact: {
           Name: "Froilan Sam",
@@ -32,8 +25,8 @@ exports.handler = async function (event, context) {
             DiscountRate: "20",
           },
         ],
-      },
-    });
+      }
+    );
 
     console.log("Data: ", data);
   } catch (e) {
