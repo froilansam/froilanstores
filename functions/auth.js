@@ -1,3 +1,4 @@
 exports.handler = async function (event, context) {
-  console.log(context.queryStringParameters);
+  console.log("Event: ", event);
+  console.log("context: ", context);
 };
