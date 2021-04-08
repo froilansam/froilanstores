@@ -1,6 +1,6 @@
 const axios = require("axios");
-exports.handler = async function (event, context) {
-  console.log("Event: ", event?.queryStringParameters?.code);
+exports.handler = async function (event, context, callback) {
+  console.log("Event: ", typeof event?.queryStringParameters?.code);
 
   const params = new URLSearchParams();
   params.append("grant_type", "authorization_code");
@@ -11,7 +11,7 @@ exports.handler = async function (event, context) {
     headers: {
       Authorization:
         "Basic MjNFQzZFMDJDMzgwNDUyNzkxNUQwRjc1NzZCNDEyM0M6VFNLcTY1QWFyUkNINTlzazdLVl9GeGJFY2IxYjNMeTZfankyQkp4dFVEMGZDWXlM",
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   };
 
