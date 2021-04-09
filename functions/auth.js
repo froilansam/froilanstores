@@ -13,45 +13,40 @@ const config = {
 };
 
 exports.handler = async function (event, context, callback) {
-  console.log(process.env.DB_URL);
-  const uri = process.env.DB_URL;
-
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
   try {
+    console.log(process.env.DB_URL);
+    const uri = process.env.DB_URL;
+
+    const client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     await client.connect();
 
-    await client.db("codes_db").collection("codes").drop();
+    const params = new URLSearchParams();
+    params.append("grant_type", "authorization_code");
+    params.append("code", event?.queryStringParameters?.code);
+    params.append(
+      "redirect_uri",
+      "https://froilanstores.netlify.app/.netlify/functions/auth"
+    );
 
-    const test = await client
-      .db("codes_db")
-      .collection("codes")
-      .insertOne({ code: event?.queryStringParameters?.code });
+    const { data } = await axios.post(
+      "https://identity.xero.com/connect/token",
+      params,
+      config
+    );
+
+    await client.db("codes_db").collection("tokens").drop();
+
+    const test = await client.db("codes_db").collection("tokens").insertOne({
+      token: data.access_token,
+      refresh_token: data.refresh_token,
+    });
     console.log("Test: ", test);
-  } catch (err) {
-    console.log(err); // output to netlify function log
+  } catch (e) {
+    console.log(e);
   } finally {
     await client.close();
   }
-
-  //   const params = new URLSearchParams();
-  //   params.append("grant_type", "authorization_code");
-  //   params.append("code", event?.queryStringParameters?.code);
-  //   params.append(
-  //     "redirect_uri",
-  //     "https://froilanstores.netlify.app/.netlify/functions/auth"
-  //   );
-  //   try {
-  //     const { data } = await axios.post(
-  //       "https://identity.xero.com/connect/token",
-  //       params,
-  //       config
-  //     );
-  //     attachToken(data.access_token);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
 };
