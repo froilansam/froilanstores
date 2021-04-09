@@ -12,21 +12,22 @@ const config = {
   },
 };
 
-mongoose.connect(
-  "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
-
 exports.handler = async function (event, context, callback) {
-  const kittySchema = new mongoose.Schema({
-    name: String,
-  });
+  mongoose.connect(
+    "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  );
+  // const kittySchema = new mongoose.Schema({
+  //   name: String,
+  // });
 
   const Kitten = mongoose.model("Kitten", kittySchema);
 
-  const silence = new Kitten({ name: "Silence" });
+  // const silence = new Kitten({ name: "Silence" });
 
-  console.log("A: ", silence);
+  const all = Kitten.find();
+
+  console.log("A: ", all);
 
   //   const params = new URLSearchParams();
   //   params.append("grant_type", "authorization_code");
