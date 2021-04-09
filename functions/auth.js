@@ -23,8 +23,8 @@ exports.handler = async function (event, context, callback) {
 
   try {
     await client.connect();
-    const test = await client.db("codes_db").collection("codes").find();
-    console.log("TestL ", test);
+    const test = await client.db("codes_db").collection("codes").findOne();
+    console.log("Test: ", test);
   } catch (err) {
     console.log(err); // output to netlify function log
   } finally {
