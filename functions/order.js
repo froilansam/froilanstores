@@ -15,7 +15,7 @@ exports.handler = async function (event, context) {
       .db("codes_db")
       .collection("tokens")
       .findOne();
-    console.log("Tokens: ", tokens);
+    console.log("Tokens: ", token);
 
     const { data } = await axios.put(
       "https://api.xero.com/api.xro/2.0/Invoices",
