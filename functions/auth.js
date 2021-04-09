@@ -1,3 +1,4 @@
+require("dotenv").config();
 const axios = require("axios");
 const qs = require("qs");
 const { MongoClient } = require("mongodb");
@@ -13,8 +14,7 @@ const config = {
 };
 
 exports.handler = async function (event, context, callback) {
-  const uri =
-    "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority";
+  const uri = process.env.DB_URL;
 
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
@@ -23,7 +23,10 @@ exports.handler = async function (event, context, callback) {
 
   try {
     await client.connect();
-    const test = await client.db("codes_db").collection("codes").findOne();
+    const test = await client
+      .db("codes_db")
+      .collection("codes")
+      .insertOne({ code: event?.queryStringParameters?.code });
     console.log("Test: ", test);
   } catch (err) {
     console.log(err); // output to netlify function log
