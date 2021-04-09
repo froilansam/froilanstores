@@ -1,5 +1,5 @@
 const axios = require("axios");
-var firebase = require("firebase");
+const admin = require("firebase-admin");
 const qs = require("qs");
 const { attachToken } = require("../utils/api");
 
@@ -22,8 +22,9 @@ exports.handler = function (event, context, callback) {
     measurementId: "G-LY8PG2BE1J",
   };
 
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = app.firestore();
+  admin.initializeApp(firebaseConfig);
+
+  const db = admin.firestore();
 
   db.collection("code")
     .add({
