@@ -1,5 +1,4 @@
 const axios = require("axios");
-const admin = require("firebase");
 const qs = require("qs");
 var admin = require("firebase-admin");
 var serviceAccount = require("../firebase_service_account.json");
