@@ -1,8 +1,18 @@
 const api = require("../utils/api");
 const { getToken } = require("../utils/api");
+const { MongoClient } = require("mongodb");
 
 exports.handler = async function (event, context) {
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
   try {
+    await client.connect();
+    const tokens = await client.db("codes_db").collection("tokens").findOne();
+    console.log("Tokens");
+
     const { data } = await axios.put(
       "https://api.xero.com/api.xro/2.0/Invoices",
       {

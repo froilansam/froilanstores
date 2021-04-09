@@ -21,8 +21,6 @@ exports.handler = async function (event, context, callback) {
     useUnifiedTopology: true,
   });
   try {
-    await client.connect();
-
     const params = new URLSearchParams();
     params.append("grant_type", "authorization_code");
     params.append("code", event?.queryStringParameters?.code);
@@ -36,6 +34,7 @@ exports.handler = async function (event, context, callback) {
       params,
       config
     );
+    await client.connect();
 
     await client.db("codes_db").collection("tokens").drop();
 
