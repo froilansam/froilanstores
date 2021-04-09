@@ -1,5 +1,5 @@
 const axios = require("axios");
-var firebase = require("firebase/firestore");
+var firebase = require("firebase");
 const qs = require("qs");
 const { attachToken } = require("../utils/api");
 
