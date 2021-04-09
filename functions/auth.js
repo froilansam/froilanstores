@@ -14,6 +14,7 @@ const config = {
 };
 
 exports.handler = async function (event, context, callback) {
+  console.log(process.env.DB_URL);
   const uri = process.env.DB_URL;
 
   const client = new MongoClient(uri, {
