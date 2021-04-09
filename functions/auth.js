@@ -1,6 +1,8 @@
 const axios = require("axios");
 const admin = require("firebase");
 const qs = require("qs");
+var admin = require("firebase-admin");
+var serviceAccount = require("../firebase_service_account.json");
 const { attachToken } = require("../utils/api");
 
 const config = {
@@ -11,30 +13,17 @@ const config = {
   },
 };
 
-exports.handler = function (event, context, callback) {
-  const firebaseConfig = {
-    apiKey: "AIzaSyCscVDdnGiJLjW6srJiSFnlhetD9go6mYs",
-    authDomain: "fir-company-uk.firebaseapp.com",
-    projectId: "fir-company-uk",
-    storageBucket: "fir-company-uk.appspot.com",
-    messagingSenderId: "176014343265",
-    appId: "1:176014343265:web:e1812fce13ed312ebd7e20",
-    measurementId: "G-LY8PG2BE1J",
-  };
+exports.handler = async function (event, context, callback) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+  const db = admin.firestore();
+  const docRef = db.collection("code").doc();
 
-  db.collection("code")
-    .add({
-      code: event?.queryStringParameters?.code,
-    })
-    .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
+  await docRef.set({
+    code: event?.queryStringParameters?.code,
+  });
 
   //   const params = new URLSearchParams();
   //   params.append("grant_type", "authorization_code");
