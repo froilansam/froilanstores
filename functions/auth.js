@@ -1,6 +1,6 @@
 const axios = require("axios");
 const qs = require("qs");
-const admin = require("firebase-admin");
+const admin = require("firebase");
 
 const { attachToken } = require("../utils/api");
 
