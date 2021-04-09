@@ -17,11 +17,11 @@ exports.handler = async function (event, context, callback) {
     "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   );
-  const kittySchema = new mongoose.Schema({
-    name: String,
-  });
+  // const kittySchema = new mongoose.Schema({
+  //   name: String,
+  // });
 
-  const Kitten = mongoose.model("Kitten", kittySchema);
+  const Kitten = mongoose.model("Kitten");
 
   // const silence = new Kitten({ name: "Silence" });
 
