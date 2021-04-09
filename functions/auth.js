@@ -1,4 +1,3 @@
-require("dotenv").config();
 const axios = require("axios");
 const qs = require("qs");
 const { MongoClient } = require("mongodb");
@@ -24,6 +23,9 @@ exports.handler = async function (event, context, callback) {
 
   try {
     await client.connect();
+
+    await client.db("codes_db").collection("codes").deleteMany();
+
     const test = await client
       .db("codes_db")
       .collection("codes")
