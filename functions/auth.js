@@ -1,6 +1,6 @@
 const axios = require("axios");
 const qs = require("qs");
-const mongoose = require("mongoose");
+const { MongoClient } = require("mongodb");
 
 const { attachToken } = require("../utils/api");
 
@@ -13,21 +13,23 @@ const config = {
 };
 
 exports.handler = async function (event, context, callback) {
-  mongoose.connect(
-    "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  );
-  const kittySchema = new mongoose.Schema({
-    name: String,
+  const uri =
+    "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority";
+
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 
-  const Kitten = mongoose.model("Kitten", kittySchema);
-
-  // const silence = new Kitten({ name: "Silence" });
-
-  const all = Kitten.find();
-
-  console.log("A: ", all);
+  try {
+    await client.connect();
+    const test = await client.db("codes_db").collection("codes").find();
+    console.log("TestL ", test);
+  } catch (err) {
+    console.log(err); // output to netlify function log
+  } finally {
+    await client.close();
+  }
 
   //   const params = new URLSearchParams();
   //   params.append("grant_type", "authorization_code");
