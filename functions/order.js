@@ -3,7 +3,7 @@ const { getToken } = require("../utils/api");
 
 exports.handler = async function (event, context) {
   try {
-    const { data } = await api.put(
+    const { data } = await axios.put(
       "https://api.xero.com/api.xro/2.0/Invoices",
       {
         Type: "ACCREC",
