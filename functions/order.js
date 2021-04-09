@@ -1,6 +1,7 @@
 const api = require("../utils/api");
 const { getToken } = require("../utils/api");
 const { MongoClient } = require("mongodb");
+const { default: axios } = require("axios");
 
 exports.handler = async function (event, context) {
   const client = new MongoClient(process.env.DB_URL, {
@@ -10,7 +11,10 @@ exports.handler = async function (event, context) {
 
   try {
     await client.connect();
-    const tokens = await client.db("codes_db").collection("tokens").findOne();
+    const { token, refresh_tokens } = await client
+      .db("codes_db")
+      .collection("tokens")
+      .findOne();
     console.log("Tokens: ", tokens);
 
     const { data } = await axios.put(
@@ -18,7 +22,7 @@ exports.handler = async function (event, context) {
       {
         Type: "ACCREC",
         Contact: {
-          Name: "Froilan Sam",
+          Name: "Froilan Samod",
         },
         Date: "/Date(1518685950940+0000)/",
         DueDate: "/Date(1518685950940+0000)/",
@@ -35,6 +39,14 @@ exports.handler = async function (event, context) {
             DiscountRate: "20",
           },
         ],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Xero-Tenant-Id": process.env.XTID,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       }
     );
 
