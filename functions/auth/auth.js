@@ -1,9 +1,6 @@
 const axios = require("axios");
 const qs = require("qs");
-const admin = require("firebase-admin");
-const fetch = require("node-fetch");
-
-const serviceAccount = require("../../firebase_service_account.json"); // Update this to your file
+const mongoose = require("mongoose");
 
 const { attachToken } = require("../utils/api");
 
@@ -15,19 +12,19 @@ const config = {
   },
 };
 
-// Initialise the admin with the credentials
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+mongoose.connect(
+  "mongodb+srv://froilansam:milktpapi@cluster0.vgtqs.mongodb.net/codes_db?retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
 
 exports.handler = async function (event, context, callback) {
-  const db = admin.firestore();
-
-  const docRef = db.collection("code").doc();
-
-  await docRef.set({
-    code: event?.queryStringParameters?.code,
+  const kittySchema = new mongoose.Schema({
+    name: String,
   });
+
+  const Kitten = mongoose.model("Kitten", kittySchema);
+
+  const silence = new Kitten({ name: "Silence" });
 
   //   const params = new URLSearchParams();
   //   params.append("grant_type", "authorization_code");
@@ -36,14 +33,12 @@ exports.handler = async function (event, context, callback) {
   //     "redirect_uri",
   //     "https://froilanstores.netlify.app/.netlify/functions/auth"
   //   );
-
   //   try {
   //     const { data } = await axios.post(
   //       "https://identity.xero.com/connect/token",
   //       params,
   //       config
   //     );
-
   //     attachToken(data.access_token);
   //   } catch (e) {
   //     console.log(e);
