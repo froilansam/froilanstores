@@ -23,7 +23,6 @@ exports.handler = function (event, context, callback) {
   };
 
   admin.initializeApp(firebaseConfig);
-
   const db = admin.firestore();
 
   db.collection("code")
