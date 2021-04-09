@@ -13,14 +13,14 @@ const config = {
 };
 
 exports.handler = async function (event, context, callback) {
-  try {
-    console.log(process.env.DB_URL);
-    const uri = process.env.DB_URL;
+  console.log(process.env.DB_URL);
+  const uri = process.env.DB_URL;
 
-    const client = new MongoClient(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  try {
     await client.connect();
 
     const params = new URLSearchParams();
