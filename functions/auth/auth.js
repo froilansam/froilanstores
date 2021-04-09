@@ -26,6 +26,8 @@ exports.handler = async function (event, context, callback) {
 
   const silence = new Kitten({ name: "Silence" });
 
+  console.log("A: ", silence);
+
   //   const params = new URLSearchParams();
   //   params.append("grant_type", "authorization_code");
   //   params.append("code", event?.queryStringParameters?.code);
