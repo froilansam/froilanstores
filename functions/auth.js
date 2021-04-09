@@ -24,7 +24,7 @@ exports.handler = async function (event, context, callback) {
   try {
     await client.connect();
 
-    await client.db("codes_db").collection("codes").deleteMany();
+    await client.db("codes_db").collection("codes").drop();
 
     const test = await client
       .db("codes_db")
